@@ -7,7 +7,7 @@ services:
     container_name: kraken-api-db
     restart: unless-stopped
     ports:
-      - "0.0.0.0:3012:3013"
+      - "0.0.0.0:3013:3013"
     environment:
       - NODE_ENV=production
       - PORT=3013
