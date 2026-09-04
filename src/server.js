@@ -34,6 +34,16 @@ await fastify.register(fastifySwaggerUi, {
 
 
 // POST endpoint with schema validation
+fastify.get('/', {}, async (request, reply) => {
+
+
+
+    return reply.code(201).send({"status": "ok"});
+});
+
+
+
+// POST endpoint with schema validation
 fastify.get('/test', {}, async (request, reply) => {
 
 
