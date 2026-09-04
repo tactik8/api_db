@@ -17,10 +17,10 @@
   "scripts": {
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "build": "rm -rf dist && npm run build:cjs && npm run build:esm",
-    "build:cjs": "esbuild src/index.js --bundle --packages=external --sourcemap --minify --platform=node --format=cjs --outfile=dist/index.cjs",
-    "build:esm": "esbuild src/index.js --bundle --packages=external --sourcemap --minify --platform=node --format=esm --outfile=dist/index.js",
+    "build:cjs": "esbuild src/server.js --bundle --packages=external --sourcemap --minify --platform=node --format=cjs --outfile=dist/index.cjs",
+    "build:esm": "esbuild src/server.js --bundle --packages=external --sourcemap --minify --platform=node --format=esm --outfile=dist/index.js",
     "dev": "node src/server.js",
-    "start": "node dist/server.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "Tactik8",

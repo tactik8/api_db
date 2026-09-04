@@ -20,4 +20,4 @@ EXPOSE 3013
 USER node
 
 # Command to start the server
-CMD ["node", "./src/server.js"]
+CMD ["npm", "run", "start"]
