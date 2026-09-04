@@ -421,7 +421,7 @@ fastify.delete('/api/:databaseID/:tenantID/:record_id/itemListElement', async (r
 
 // Top-level await is fully supported in ES6 modules
 try {
-    await fastify.listen({ port: 3013 });
+    await fastify.listen({ port: 3013, host: '0.0.0.0' });
 } catch (err) {
     fastify.log.error(err);
     process.exit(1);
