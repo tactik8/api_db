@@ -67,23 +67,7 @@ fastify.get('/test', {}, async (request, reply) => {
 // -----------------------------------------------------------------------------------------------
 
 // GET endpoint accepting query parameters
-fastify.get('/api/:databaseID/:tenantID', {
-    schema: {
-        summary: 'Search and paginate records',
-        tags: ['Records'],
-        querystring: {
-            type: 'object',
-            properties: {
-                record_id: { type: 'string', description: 'Filter by specific record ID' },
-                filter: { type: 'string', description: 'Search term for text filtering' },
-                limit: { type: 'integer', minimum: 1, maximum: 100, default: 10, description: 'Number of results to return' },
-                offset: { type: 'integer', minimum: 0, default: 0, description: 'Number of results to skip' },
-                orderBy: { type: 'string', enum: ['created_at', 'updated_at', 'name'], default: 'created_at' },
-                orderDirection: { type: 'string', enum: ['asc', 'desc'], default: 'desc' }
-            }
-        }
-    }
-}, async (request, reply) => {
+fastify.get('/api/:databaseID/:tenantID', async (request, reply) => {
     // Fastify automatically parses and coerces types based on the schema above
 
     let { databaseID, tenantID } = request.params;
