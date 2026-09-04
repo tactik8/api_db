@@ -110,8 +110,9 @@ fastify.get('/api/:databaseID/:tenantID', async (request, reply) => {
         return reply.code(200).send(action?.result || {});
     }
 
-    let action = await db.search(filter, orderBy, orderDirection, limit, offset)
-    return reply.code(200).send(action?.result || {});
+    console.log('f', filter)
+    let result = await db.search(filter, orderBy, orderDirection, limit, offset)
+    return reply.code(200).send(result || {});
 
 });
 
