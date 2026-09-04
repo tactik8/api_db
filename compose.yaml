@@ -4,7 +4,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: upload-api
+    container_name: kraken-api-db
     restart: unless-stopped
     ports:
       - "0.0.0.0:3012:3013"
