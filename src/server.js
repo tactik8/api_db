@@ -38,7 +38,7 @@ fastify.get('/', {}, async (request, reply) => {
 
 
 
-    return reply.code(201).send({"status": "ok"});
+    return reply.code(200).send({"status": "ok"});
 });
 
 
