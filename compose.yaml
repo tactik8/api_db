@@ -7,16 +7,16 @@ services:
     container_name: kraken-api-db
     restart: unless-stopped
     ports:
-      - "0.0.0.0:3013:3013"
+      - "0.0.0.0:3013:3000"
     environment:
       - NODE_ENV=production
-      - PORT=3013
+      - PORT=3000
     volumes:
       #- ./uploads:/app/uploads
       - /mnt/nas4:/app/uploads
     healthcheck:
-      # Tests the new GET / endpoint on port 3013
-      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3013/ || exit 1"]
+      # Tests the new GET / endpoint on port 3000
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
