@@ -14,7 +14,7 @@ RUN npm ci --only=production
 COPY . .
 
 # Expose the port the Express app runs on
-EXPOSE 3013
+EXPOSE 3000
 
 # Run the app as a non-root user for security
 USER node
