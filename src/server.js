@@ -22,7 +22,7 @@ await fastify.register(fastifySwagger, {
             description: 'Auto-generated OpenAPI Spec',
             version: '1.0.0'
         },
-        servers: [{ url: 'http://localhost:3000' }]
+        servers: [{ url: 'http://localhost:3013' }]
     }
 });
 
@@ -421,7 +421,7 @@ fastify.delete('/api/:databaseID/:tenantID/:record_id/itemListElement', async (r
 
 // Top-level await is fully supported in ES6 modules
 try {
-    await fastify.listen({ port: 3000 });
+    await fastify.listen({ port: 3013 });
 } catch (err) {
     fastify.log.error(err);
     process.exit(1);
