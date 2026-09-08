@@ -90,6 +90,28 @@ async function testBase(baseUrl, databaseID, tenantID) {
         return test
     }
 
+    // test 2. patch 
+    testName = 'Update, patch record check if added ok'
+    unitTest = getAction(testName, test)
+    let newRecord = {"@id": record?.['@id'], 'newName': "testname"}
+    r = await patchRecords(baseUrl, databaseID, tenantID, newRecord)
+    r = await getRecord(baseUrl, databaseID, tenantID, record?.['@id'])
+    if (r?.['@id'] != record?.['@id']) {
+        unitTest = setFailed(unitTest, `Failed 1 - Expected ${JSON.stringify(record)} returned ${JSON.stringify(r)}`)
+        test = setFailed(test, testName)
+        return test
+    }
+    if (r?.name != record?.name) {
+        unitTest = setFailed(unitTest, `Failed 2 - Expected ${JSON.stringify(record)} returned ${JSON.stringify(r)}`)
+        test = setFailed(test, testName)
+        return test
+    }
+     if (r?.newName != newRecord?.newName) {
+        unitTest = setFailed(unitTest, `Failed 3 - Expected ${JSON.stringify(record)} returned ${JSON.stringify(r)}`)
+        test = setFailed(test, testName)
+        return test
+    }
+
     // test 2. delete 
     testName = 'Test delete - check record no longer exist'
     unitTest = getAction(testName, test)
@@ -259,6 +281,30 @@ async function postRecords(baseUrl, databaseID, tenantID, data) {
 
     r = await fetch(url.toString(), {
         method: 'POST', // Specify the HTTP method
+        headers: {
+            'Content-Type': 'application/json' // Tell the server you're sending JSON
+        },
+        body: JSON.stringify(data) // Convert the JS object into a JSON string
+    });
+
+
+    result = await r.json()
+
+    return result
+
+}
+
+
+async function patchRecords(baseUrl, databaseID, tenantID, data) {
+
+    let r
+    let result
+
+    // test 1. get 
+    let url = new URL(`/api/${databaseID}/${tenantID}`, baseUrl)
+
+    r = await fetch(url.toString(), {
+        method: 'PATCH', // Specify the HTTP method
         headers: {
             'Content-Type': 'application/json' // Tell the server you're sending JSON
         },

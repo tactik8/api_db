@@ -20,7 +20,8 @@
     "build:cjs": "esbuild src/server.js --bundle --packages=external --sourcemap --minify --platform=node --format=cjs --outfile=dist/index.cjs",
     "build:esm": "esbuild src/server.js --bundle --packages=external --sourcemap --minify --platform=node --format=esm --outfile=dist/index.js",
     "dev": "node src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "d": "npm install github:tactik8/helpers_jsonld; npm install github:tactik8/helpers_mongodb;"
   },
   "keywords": [],
   "author": "Tactik8",
