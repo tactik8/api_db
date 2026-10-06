@@ -116,6 +116,8 @@ fastify.get('/api/:databaseID/:tenantID', async (request, reply) => {
 
 });
 
+
+
 // POST record
 fastify.post('/api/:databaseID/:tenantID', async (request, reply) => {
 
@@ -146,6 +148,11 @@ fastify.patch('/api/:databaseID/:tenantID', async (request, reply) => {
     return reply.code(200).send(action?.result || {});
 
 });
+
+
+
+
+
 
 // Delete record
 fastify.delete('/api/:databaseID/:tenantID', async (request, reply) => {
@@ -317,6 +324,58 @@ fastify.delete('/api/:databaseID/:tenantID/:record_id', {
     let action = await db.delete({ "@id": record_id })
 
     return reply.code(200).send(action?.result || {});
+});
+
+
+
+
+// -----------------------------------------------------------------------------------------------
+// Related records 
+// -----------------------------------------------------------------------------------------------
+
+
+// GET endpoint accepting query parameters
+fastify.get('/api/:databaseID/:tenantID/:record_id/related', {
+    schema: {
+        summary: 'Search and paginate records',
+        tags: ['Records']
+    }
+}, async (request, reply) => {
+    // Fastify automatically parses and coerces types based on the schema above
+
+    let { databaseID, tenantID, record_id } = request.params;
+
+    let limit = request.query?.limit
+    let offset = request.query?.offset
+    let orderBy = request.query?.orderBy
+    let orderDirection = request?.query?.orderDirection
+
+
+
+    if (!databaseID) {
+        return reply.code(400).send({
+            status: 'failed',
+            error: "missing databaseID"
+        });
+    }
+
+    if (!tenantID) {
+        return reply.code(400).send({
+            status: 'failed',
+            error: "missing tenantID"
+        });
+    }
+
+
+    let db = await MongoDB.getDB(URI, databaseID, tenantID)
+
+    
+    let action = await db.related(record_id, orderBy, orderDirection, limit, offset)
+        
+
+    let result = action?.result || {}
+    return reply.code(200).send(result);
+
 });
 
 
