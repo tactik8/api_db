@@ -61,6 +61,40 @@ fastify.get('/test', {}, async (request, reply) => {
 
 
 
+// POST endpoint with schema validation
+fastify.get('/test2', {}, async (request, reply) => {
+
+    let baseUrl = `${request.protocol}://${request.headers.host}`;
+    let databaseID = "unitTests"
+    let tenantID = "unitTestApi"
+
+
+    let url = `http://localhost:3013/api/${databaseID}/${tenantID}`
+
+    let thing = {
+        "@type": "Thing",
+        "@id": "https://www.test.com/thing1@thing",
+        "name": "Thing1"
+    }
+   
+
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(thing)
+    });
+
+    let result = await response.json()
+
+    console.log(result)
+
+    return reply.code(201).send(result);
+});
+
+
+
 
 // -----------------------------------------------------------------------------------------------
 // Base 
@@ -128,7 +162,6 @@ fastify.post('/api/:databaseID/:tenantID', async (request, reply) => {
     let db = await MongoDB.getDB(URI, databaseID, tenantID)
 
     let action = await db.post(records)
-
 
     return reply.code(200).send(action?.result);
 

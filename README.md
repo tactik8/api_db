@@ -19,6 +19,6 @@ docker compose build --no-cache --pull
 docker pull
 
 docker build -t --no-cache --pull api_db .
-docker copose up -d
+docker compose up -d
 
 ```
