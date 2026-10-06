@@ -130,7 +130,7 @@ fastify.post('/api/:databaseID/:tenantID', async (request, reply) => {
     let action = await db.post(records)
 
 
-    return reply.code(200).send({});
+    return reply.code(200).send(action?.result);
 
 });
 
