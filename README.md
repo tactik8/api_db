@@ -13,6 +13,10 @@ npm install github:tactik8/helpers_mongodb
 
 ```
 
+docker compose up -d --build
+
+
+
 docker compose build --no-cache --pull
 
 
