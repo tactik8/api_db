@@ -1,4 +1,5 @@
 import Fastify from 'fastify';
+import fastifyCors from '@fastify/cors';
 
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
@@ -13,6 +14,10 @@ let URI = 'mongodb://tactik8:Temp4now@192.168.2.243:27017/?authMechanism=DEFAULT
 
 
 const fastify = Fastify({ trustProxy: true, logger: true });
+
+await fastify.register(fastifyCors, {
+  origin: '*'
+});
 
 // 1. Register Swagger plugin configured for OpenAPI 3.0
 await fastify.register(fastifySwagger, {
